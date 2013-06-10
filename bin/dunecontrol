@@ -487,7 +487,7 @@ run_default_update () {
 }
 
 run_default_autogen () {
-  if test "x$USE_CMAKE" != "xyes" || test  ! -e $(eval "echo \$PATH_$module")/CMakeLists.txt ; then
+  if test "x$USE_CMAKE" != "xyes" || test  ! -e "$(eval "echo \$PATH_$module")/CMakeLists.txt" ; then
     PARAMS="$CMD_FLAGS"
     local M4_PATH=""
     if test -f configure.ac && \
@@ -513,7 +513,7 @@ run_default_autogen () {
 
 run_default_configure () {
   PARAMS="$CMD_FLAGS"
-  if test "x$USE_CMAKE" = "xyes" && test -e $(eval "echo \$PATH_$module")/CMakeLists.txt; then
+  if test "x$USE_CMAKE" = "xyes" && test -e "$(eval "echo \$PATH_$module")/CMakeLists.txt"; then
     LOCAL_USE_CMAKE=yes
   else
     LOCAL_USE_CMAKE=no
@@ -573,8 +573,8 @@ run_default_configure () {
       SRCDIR="$PWD"
       cd "$BUILDDIR"
       echo `pwd`
-      echo "cmake -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_MODULE_PATH=\"$CMAKE_MODULE_PATH\" $CMAKE_PARAMS $CMAKE_FLAGS $SRCDIR"
-      eval cmake "-DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_MODULE_PATH=\"$CMAKE_MODULE_PATH\" $CMAKE_PARAMS $CMAKE_FLAGS $SRCDIR" || exit 1
+      echo "cmake -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_MODULE_PATH=\"$CMAKE_MODULE_PATH\" $CMAKE_PARAMS $CMAKE_FLAGS \"$SRCDIR\""
+      eval cmake "-DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_MODULE_PATH=\"$CMAKE_MODULE_PATH\" $CMAKE_PARAMS $CMAKE_FLAGS \"$SRCDIR\"" || exit 1
     else
       echo ./configure "$PARAMS"
       # create build directory of requested
